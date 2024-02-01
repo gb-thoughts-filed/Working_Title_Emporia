@@ -1,0 +1,26 @@
+Timer unit: 1e-09 s
+
+Total time: 201.55 s
+File: /home/gcbrowne/scipy_solver_line_profiler.py
+Function: solver at line 46
+
+Line #      Hits         Time  Per Hit   % Time  Line Contents
+==============================================================
+    46                                           @profile
+    47                                           def solver(a, b):
+    48         1   38356524.0    4e+07      0.0      udd_1 = sp.sparse.linalg.spsolve(a, b)
+    49         1  565148951.0    6e+08      0.3      udd_2 = sp.sparse.linalg.cg(a, b)
+    50         1  975447555.0    1e+09      0.5      udd_3 = sp.sparse.linalg.bicg(a, b)
+    51         1  793954772.0    8e+08      0.4      udd_4 = sp.sparse.linalg.bicgstab(a, b)
+    52         1        2e+11    2e+11     92.7      udd_5 = sp.sparse.linalg.cgs(a, b)
+    53         1 4360715644.0    4e+09      2.2      udd_6 = sp.sparse.linalg.gmres(a, b)
+    54         1  497866358.0    5e+08      0.2      udd_7 = sp.sparse.linalg.lgmres(a, b)
+    55         1  117022225.0    1e+08      0.1      udd_8 = sp.sparse.linalg.minres(a, b)
+    56         1 1127850472.0    1e+09      0.6      udd_9 = sp.sparse.linalg.qmr(a, b)
+    57         1  570288559.0    6e+08      0.3      udd_10 = sp.sparse.linalg.gcrotmk(a, b)
+    58         1 5736165803.0    6e+09      2.8      udd_11 = sp.sparse.linalg.tfqmr(a, b)
+    59                                           
+    60         2       2201.0   1100.5      0.0      return [udd_1, udd_2, udd_3, udd_4, udd_5, udd_6, udd_7, udd_8, udd_9,
+    61         1        311.0    311.0      0.0              udd_10, udd_11]
+
+201.55 seconds - /home/gcbrowne/scipy_solver_line_profiler.py:46 - solver

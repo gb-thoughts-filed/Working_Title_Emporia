@@ -4,19 +4,20 @@ import igl
 import scipy as sp
 from datetime import datetime
 import time
+
 # import matplotlib.pyplot as plt
 v, _, _, f, _, _ = igl.read_obj("../octopus.mesh__sf.obj")
 # ps.init()
 # ps.register_surface_mesh("octopus", v, f)
 # ps.show()
 
-L = igl.cotmatrix(v, f)
+L = -igl.cotmatrix(v, f)
 # print(L)
 
 
 # plt.spy(L)
 eps = 1e-12
-i1 = np.where(v[:, 1] == v[:, 1].max())[0] # top of octopus, indices known
+i1 = np.where(v[:, 1] == v[:, 1].max())[0]  # top of octopus, indices known
 i2 = np.where(v[:, 0] == v[:, 0].min())[0]
 
 k = np.concatenate([i1, i2])
@@ -27,22 +28,22 @@ d = np.setdiff1d(np.arange(n), k)
 Ldd = L[d, :][:, d]
 Ldk = L[d, :][:, k]
 
-
 # assemble uk=2 vector (u[k])
 u_k = np.array([-5, 20])
 # solve Ldd * udd = uk
 
 rhs = -Ldk @ u_k
 
-def scipy_sparse_linalg_cg(Ldd, rhs, timer):
+def scipy_sparse_linalg_factorized(Ldd, rhs, timer):
     counter = 0
     title = datetime.today()
-    time_file = open(f"sparse_linalg_cg{title: %B%d%Y}.txt", "a")
+    time_file = open(f"sparse_linalg_factorized{title: %B%d%Y}.txt", "a")
     start_time = datetime.now()
     t1 = time.time()
 
     while time.time() - t1 < timer:
-        udd = sp.sparse.linalg.cg(Ldd, rhs)
+        solve = sp.sparse.linalg.factorized(Ldd)
+        udd = solve(rhs)
         counter += 1
 
     end_time = datetime.now()
@@ -51,11 +52,12 @@ def scipy_sparse_linalg_cg(Ldd, rhs, timer):
     norms = []
 
     while counter2 < 100:
-        udd = sp.sparse.linalg.cg(Ldd, rhs)
-        resid_norm = np.linalg.norm(Ldd@udd[0] - rhs)
+        solve = sp.sparse.linalg.factorized(Ldd)
+        udd = solve(rhs)
+        resid_norm = np.linalg.norm(Ldd@udd - rhs)
         norms.append(resid_norm)
         counter2 += 1
     avg_resid_norm = np.average(norms)
     time_file.write(f" \n {start_time}, {counter}, {end_time}, {avg_resid_norm}")
 
-scipy_sparse_linalg_cg(Ldd, rhs, 3600)
+scipy_sparse_linalg_factorized(Ldd, rhs, 3600)

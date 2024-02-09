@@ -6,7 +6,7 @@ from datetime import datetime
 import time
 import cvxopt as cvx
 # import matplotlib.pyplot as plt
-v, _, _, f, _, _ = igl.read_obj("octopus.mesh__sf.obj")
+v, _, _, f, _, _ = igl.read_obj("../octopus.mesh__sf.obj")
 # ps.init()
 # ps.register_surface_mesh("octopus", v, f)
 # ps.show()
@@ -38,41 +38,32 @@ rhs = -Ldk @ u_k
 
 
 
-def sparse_linalg_chosolve_decomp_out_hour(a_Ldd, rhs, out_dir=None):
+def sparse_linalg_chosolve_decomp_out(a_Ldd, rhs):
     cho_Ldd, u_or_l = sp.linalg.cho_factor(a_Ldd)
     counter = 0
     title = datetime.today()
-    time_file = open(f"linalg_cho_solve {title: %B%d%Y}.txt", "a")
+    time_file = open(f"linalg_cho_solve_test{title: %B%d%Y}.txt", "a")
     start_time = datetime.now()
     t1 = time.time()
-    #print and save starting date/time to disk
-    #make a time loop that calls the next line for a whole hour or a whole day
-    #counter saved after each time the function is called
-    #print and save ending date time
-    #email stuff
+
     while time.time() - t1 < 5:
         udd = sp.linalg.cho_solve(cho_Ldd, rhs)
         counter += 1
 
     end_time = datetime.now()
 
-    time_file.write(f" \n {start_time}, {counter}, {end_time}")
+    counter2 = 0
+    norms = []
 
-    #while loop
-    res = a_Ldd@ udd - rhs
+    while counter2 < 100:
+        udd = sp.sparse.linalg.spsolve(cho_Ldd, rhs)
+        resid_norm = cho_Ldd@udd - rhs
+        norms.append(resid_norm)
+        counter2 += 1
+    avg_resid_norm = np.average(resid_norm)
+    time_file.write(f" \n {start_time}, {counter}, {end_time}, {avg_resid_norm}")
 
-#github repo, add Otman as a collaborator
+sparse_linalg_chosolve_decomp_out(a_Ldd, rhs)
 
-#rewrite codebase
 
-#same thing with sparse solvers as dense solvers
-
-#subspace approximation
-    '''
-    x lies in Rn, going to approximate it with z, 
-    z << x , m << n
-    Linear subspace approximation, b of z - linear in z, 
-    
-    PCA - principal component analysis
-    '''
 

@@ -33,7 +33,6 @@ u_k = np.array([-5, 20])
 
 udd = cp.Variable(d.shape[0])
 
-#udd = sp.sparse.linalg.spsolve(Ldd, -Ldk @ u_k)
 prob = cp.Problem(cp.Minimize((1/2)*cp.quad_form(udd, Ldd, assume_PSD=True) + (Ldk @ u_k).T @ udd))
 prob.solve(solver=cp.OSQP)
 

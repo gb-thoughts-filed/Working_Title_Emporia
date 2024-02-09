@@ -34,15 +34,16 @@ u_k = np.array([-5, 20])
 
 rhs = -Ldk @ u_k
 
-def scipy_sparse_linalg_cg(Ldd, rhs, timer):
+def sparse_linalg_tfqmr(Ldd, rhs, timer):
+
     counter = 0
     title = datetime.today()
-    time_file = open(f"sparse_linalg_cg{title: %B%d%Y}.txt", "a")
+    time_file = open(f"scipy_sparse_linalg_tfqmr{title: %B%d%Y}.txt", "a")
     start_time = datetime.now()
     t1 = time.time()
 
     while time.time() - t1 < timer:
-        udd = sp.sparse.linalg.cg(Ldd, rhs)
+        udd = sp.sparse.linalg.tfqmr(Ldd, rhs)
         counter += 1
 
     end_time = datetime.now()
@@ -51,11 +52,11 @@ def scipy_sparse_linalg_cg(Ldd, rhs, timer):
     norms = []
 
     while counter2 < 100:
-        udd = sp.sparse.linalg.cg(Ldd, rhs)
+        udd = sp.sparse.linalg.tfqmr(Ldd, rhs)
         resid_norm = np.linalg.norm(Ldd@udd[0] - rhs)
         norms.append(resid_norm)
         counter2 += 1
     avg_resid_norm = np.average(norms)
     time_file.write(f" \n {start_time}, {counter}, {end_time}, {avg_resid_norm}")
 
-scipy_sparse_linalg_cg(Ldd, rhs, 3600)
+sparse_linalg_tfqmr(Ldd, rhs, 3600)

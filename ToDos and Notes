@@ -1,0 +1,26 @@
+    #print and save starting date/time to disk
+    #make a time loop that calls the next line for a whole hour or a whole day
+    #counter saved after each time the function is called
+    #print and save ending date time
+    #email stuff
+
+    ^^ Done!
+
+#github repo, add Otman as a collaborator -- Done!
+
+#rewrite codebase
+
+#same thing with sparse solvers as dense solvers
+
+#subspace approximation
+    '''
+    x lies in Rn, going to approximate it with z,
+    z << x , m << n
+    Linear subspace approximation, b of z - linear in z,
+
+    PCA - principal component analysis
+
+#while loop
+res = a_Ldd@ udd - rhs
+
+cho solve for dense matrices shelved this time

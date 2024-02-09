@@ -34,18 +34,30 @@ u_k = np.array([-5, 20])
 
 rhs = -Ldk @ u_k
 
-counter = 0
-title = datetime.today()
-time_file = open(f"scipy_sparse_linalg_bicg{title: %B%d%Y}.txt", "a")
-start_time = datetime.now()
-t1 = time.time()
+def scipy_sparse_linalg_bicg(Ldd, rhs, timer):
+    counter = 0
+    title = datetime.today()
+    time_file = open(f"scipy_sparse_linalg_bicg{title: %B%d%Y}.txt", "a")
+    start_time = datetime.now()
+    t1 = time.time()
 
-while time.time() - t1 < 10:
+    while time.time() - t1 < timer:
+        udd = sp.sparse.linalg.bicg(Ldd, rhs)
+        counter += 1
 
-    udd = sp.sparse.linalg.bicg(Ldd, rhs)
+    end_time = datetime.now()
 
-    counter += 1
+    counter2 = 0
+    norms = []
 
-end_time = datetime.now()
+    while counter2 < 100:
+        udd = sp.sparse.linalg.bicg(Ldd, rhs)
+        resid_norm = np.linalg.norm(Ldd@udd[0] - rhs)
+        norms.append(resid_norm)
+        counter2 += 1
+    avg_resid_norm = np.average(norms)
+    time_file.write(f" \n {start_time}, {counter}, {end_time}, {avg_resid_norm}")
 
-time_file.write(f" \n {start_time}, {counter}, {end_time}")
+scipy_sparse_linalg_bicg(Ldd, rhs, 3600)
+
+

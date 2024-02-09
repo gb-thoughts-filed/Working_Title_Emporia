@@ -64,9 +64,9 @@ sparse_linalg_factorized_hour.scipy_sparse_linalg_factorized(Ldd, rhs, 3600)
 
 time.sleep(600)
 
-scipy_sparse_linalg_bicgstab_hour.sparse_linalg_bicgstab(Ldd, rhs, 3600)
+#scipy_sparse_linalg_bicgstab_hour.sparse_linalg_bicgstab(Ldd, rhs, 3600)
 
-time.sleep(600)
+#time.sleep(600)
 
 scipy_bicg_hour.scipy_sparse_linalg_bicg(Ldd, rhs, 3600)
 

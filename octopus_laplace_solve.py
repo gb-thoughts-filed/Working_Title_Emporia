@@ -3,8 +3,8 @@ import igl
 import scipy as sp
 from datetime import datetime
 import time
-import cvxopt as cvx
-from cvxopt import umfpack
+#import cvxopt as cvx
+#from cvxopt import umfpack
 from scipy_spsolve import sparse_linalg_spsolve_hour
 from scipy_tfqmr import scipy_sparse_linalg_tfqmr_hour
 from scipy_factorized import sparse_linalg_factorized_hour
@@ -41,8 +41,8 @@ d = np.setdiff1d(np.arange(n), k)
 
 Ldd = L[d, :][:, d]
 a_Ldd = Ldd.toarray()
-d_Ldd = Ldd.tocoo()
-s_Ldd = cvx.spmatrix(d_Ldd.data, d_Ldd.row, d_Ldd.col)
+#d_Ldd = Ldd.tocoo()
+#s_Ldd = cvx.spmatrix(d_Ldd.data, d_Ldd.row, d_Ldd.col)
 Ldk = L[d, :][:, k]
 
 
@@ -50,7 +50,7 @@ Ldk = L[d, :][:, k]
 u_k = np.array([-5, 20])
 # solve Ldd * udd = uk
 rhs = -Ldk @ u_k
-rhs_cvx = cvx.matrix(rhs)
+#rhs_cvx = cvx.matrix(rhs)
 
 sparse_linalg_spsolve_hour.sparse_linalg_spsolve(Ldd, rhs, 3600)
 

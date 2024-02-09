@@ -52,13 +52,13 @@ u_k = np.array([-5, 20])
 rhs = -Ldk @ u_k
 #rhs_cvx = cvx.matrix(rhs)
 
-sparse_linalg_spsolve_hour.sparse_linalg_spsolve(Ldd, rhs, 3600)
+#sparse_linalg_spsolve_hour.sparse_linalg_spsolve(Ldd, rhs, 3600)
 
-time.sleep(600)
+#time.sleep(600)
 
-scipy_sparse_linalg_tfqmr_hour.sparse_linalg_tfqmr(Ldd, rhs, 3600)
+#scipy_sparse_linalg_tfqmr_hour.sparse_linalg_tfqmr(Ldd, rhs, 3600)
 
-time.sleep(600)
+#time.sleep(600)
 
 sparse_linalg_factorized_hour.scipy_sparse_linalg_factorized(Ldd, rhs, 3600)
 
@@ -70,31 +70,31 @@ time.sleep(600)
 
 scipy_bicg_hour.scipy_sparse_linalg_bicg(Ldd, rhs, 3600)
 
-time.sleep(600)
+#time.sleep(600)
 
-sparse_linalg_cg_hour.scipy_sparse_linalg_cg(Ldd, rhs, 3600)
+#sparse_linalg_cg_hour.scipy_sparse_linalg_cg(Ldd, rhs, 3600)
 
-time.sleep(600)
+#time.sleep(600)
 
-scipy_sparse_linalg_gcrotmk_hour.sparse_linalg_gcrotmk(Ldd, rhs, 3600)
+#scipy_sparse_linalg_gcrotmk_hour.sparse_linalg_gcrotmk(Ldd, rhs, 3600)
 
-time.sleep(600)
+#time.sleep(600)
 
-scipy_sparse_linalg_gmres_hour.sparse_linalg_gmres(Ldd, rhs, 3600)
+#scipy_sparse_linalg_gmres_hour.sparse_linalg_gmres(Ldd, rhs, 3600)
 
-time.sleep(600)
+#time.sleep(600)
 
-scipy_sparse_linalg_lgmres_hour.sparse_linalg_lgmres(Ldd, rhs, 3600)
+#scipy_sparse_linalg_lgmres_hour.sparse_linalg_lgmres(Ldd, rhs, 3600)
 
-time.sleep(600)
+#time.sleep(600)
 
-scipy_sparse_linalg_minres_hour.sparse_linalg_minres(Ldd, rhs, 3600)
+#scipy_sparse_linalg_minres_hour.sparse_linalg_minres(Ldd, rhs, 3600)
 
-time.sleep(600)
+#time.sleep(600)
 
-scipy_sparse_linalg_qmr_hour.sparse_linalg_qmr(Ldd, rhs, 3600)
+#scipy_sparse_linalg_qmr_hour.sparse_linalg_qmr(Ldd, rhs, 3600)
 
-time.sleep(600)
+#time.sleep(600)
 
 #scipy_sparse_linalg_cgs_hour.sparse_linalg_cgs(Ldd, rhs, 3600)
 

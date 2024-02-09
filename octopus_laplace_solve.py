@@ -5,7 +5,7 @@ from datetime import datetime
 import time
 #import cvxopt as cvx
 #from cvxopt import umfpack
-from scipy_spsolve import sparse_linalg_spsolve_hour
+#from scipy_spsolve import sparse_linalg_spsolve_hour
 from scipy_tfqmr import scipy_sparse_linalg_tfqmr_hour
 from scipy_factorized import sparse_linalg_factorized_hour
 from scipy_bicgstab import scipy_sparse_linalg_bicgstab_hour

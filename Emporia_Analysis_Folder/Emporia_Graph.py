@@ -23,6 +23,9 @@ fig = plt.figure()
 
 depth_plt = fig.add_subplot(projection='3d')
 depth_plt.scatter(sec1loop, e1loop, avgresidnorm, marker="x")
+depth_plt.set_xlabel("Seconds in Loop", wrap=True)
+depth_plt.set_ylabel("Energy Minus Base in a Single Loop", wrap=True)
+depth_plt.set_zlabel("Average Residual Norm", wrap=True)
 for (s, i, j, k) in zip(name, sec1loop, e1loop, avgresidnorm):
     depth_plt.text(i, j, k, f"{s}")
 plt.show()

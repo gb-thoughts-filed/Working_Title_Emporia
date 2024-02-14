@@ -37,7 +37,7 @@ rhs = -Ldk @ u_k
 def sparse_linalg_lgmres(Ldd, rhs, timer):
     counter = 0
     title = datetime.today()
-    time_file = open(f"scipy_sparse_linalg_lgmres_test{title: %B%d%Y}.txt", "a")
+    time_file = open(f"scipy_sparse_linalg_lgmres{title: %B%d%Y}.txt", "a")
     start_time = datetime.now()
     t1 = time.time()
 

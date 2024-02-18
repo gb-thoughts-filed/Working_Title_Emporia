@@ -41,8 +41,9 @@ def sparse_linalg_bicgstab(Ldd, rhs):
     time_file = open(f"scipy_sparse_linalg_bicgstab_tol{title: %B%d%Y}.txt", "a")
     start_time = datetime.now()
     t1 = time.time()
+    resid_norm = 1
 
-    while 10**-5 < resid_norm:
+    while 10**-5 <= resid_norm:
         udd = sp.sparse.linalg.bicgstab(Ldd, rhs)
         resid_norm = np.linalg.norm(Ldd@udd[0] - rhs)
         counter += 1

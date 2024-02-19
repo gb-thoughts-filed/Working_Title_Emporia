@@ -42,7 +42,7 @@ def scipy_sparse_linalg_bicg(Ldd, rhs, timer):
     t1 = time.time()
 
     while time.time() - t1 < timer:
-        udd = sp.sparse.linalg.bicg(Ldd, rhs)
+        udd = sp.sparse.linalg.bicg(Ldd, rhs, tol=10**-7)
         counter += 1
 
     end_time = datetime.now()
@@ -50,8 +50,8 @@ def scipy_sparse_linalg_bicg(Ldd, rhs, timer):
     counter2 = 0
     norms = []
 
-    while counter2 < 100:
-        udd = sp.sparse.linalg.bicg(Ldd, rhs)
+    while counter2 < 5:
+        udd = sp.sparse.linalg.bicg(Ldd, rhs, tol=10**-7)
         resid_norm = np.linalg.norm(Ldd@udd[0] - rhs)
         norms.append(resid_norm)
         counter2 += 1

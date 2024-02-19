@@ -50,7 +50,7 @@ def sparse_linalg_spsolve(Ldd, rhs, timer):
     counter2 = 0
     norms = []
 
-    while counter2 < 100:
+    while counter2 < 5:
         udd = sp.sparse.linalg.spsolve(Ldd, rhs)
         resid_norm = np.linalg.norm(Ldd@udd - rhs)
         norms.append(resid_norm)

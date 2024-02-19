@@ -51,7 +51,7 @@ def scipy_sparse_linalg_factorized(Ldd, rhs, timer):
     counter2 = 0
     norms = []
 
-    while counter2 < 100:
+    while counter2 < 5:
         solve = sp.sparse.linalg.factorized(Ldd)
         udd = solve(rhs)
         resid_norm = np.linalg.norm(Ldd@udd - rhs)

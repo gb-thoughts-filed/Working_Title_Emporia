@@ -2,3 +2,7 @@
   udd = sp.sparse.linalg.lgmres(Ldd, rhs)
 /home/gcbrowne/Working_Title_Emporia/scipy_lgmres/scipy_sparse_linalg_lgmres_hour.py:54: DeprecationWarning: scipy.sparse.linalg.lgmres called without specifying `atol`. The default value will change in the future. To preserve current behavior, set ``atol=tol``.
   udd = sp.sparse.linalg.lgmres(Ldd, rhs)
+/home/gcbrowne/Working_Title_Emporia/scipy_lgmres/scipy_sparse_linalg_lgmres_hour.py:45: DeprecationWarning: scipy.sparse.linalg.lgmres called without specifying `atol`. The default value will change in the future. To preserve current behavior, set ``atol=tol``.
+  udd = sp.sparse.linalg.lgmres(Ldd, rhs, tol=10**-7)
+/home/gcbrowne/Working_Title_Emporia/scipy_lgmres/scipy_sparse_linalg_lgmres_hour.py:54: DeprecationWarning: scipy.sparse.linalg.lgmres called without specifying `atol`. The default value will change in the future. To preserve current behavior, set ``atol=tol``.
+  udd = sp.sparse.linalg.lgmres(Ldd, rhs, tol=10**-7)

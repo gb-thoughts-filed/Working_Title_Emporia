@@ -2,3 +2,7 @@
   udd = sp.sparse.linalg.gcrotmk(Ldd, rhs)
 /home/gcbrowne/Working_Title_Emporia/scipy_gcrotmk/scipy_sparse_linalg_gcrotmk_hour.py:55: DeprecationWarning: scipy.sparse.linalg.gcrotmk called without specifying `atol`. The default value will change in the future. To preserve current behavior, set ``atol=tol``.
   udd = sp.sparse.linalg.gcrotmk(Ldd, rhs)
+/home/gcbrowne/Working_Title_Emporia/scipy_gcrotmk/scipy_sparse_linalg_gcrotmk_hour.py:45: DeprecationWarning: scipy.sparse.linalg.gcrotmk called without specifying `atol`. The default value will change in the future. To preserve current behavior, set ``atol=tol``.
+  udd = sp.sparse.linalg.gcrotmk(Ldd, rhs, tol=10**-7)
+/home/gcbrowne/Working_Title_Emporia/scipy_gcrotmk/scipy_sparse_linalg_gcrotmk_hour.py:55: DeprecationWarning: scipy.sparse.linalg.gcrotmk called without specifying `atol`. The default value will change in the future. To preserve current behavior, set ``atol=tol``.
+  udd = sp.sparse.linalg.gcrotmk(Ldd, rhs, tol=10**-7)

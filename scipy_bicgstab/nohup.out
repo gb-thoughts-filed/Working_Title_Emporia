@@ -1,0 +1,6 @@
+Traceback (most recent call last):
+  File "/home/gcbrowne/Working_Title_Emporia/scipy_bicgstab/scipy_sparse_linalg_bicgstab_tol.py", line 54, in <module>
+    sparse_linalg_bicgstab(Ldd, rhs)
+  File "/home/gcbrowne/Working_Title_Emporia/scipy_bicgstab/scipy_sparse_linalg_bicgstab_tol.py", line 45, in sparse_linalg_bicgstab
+    while 10**-5 < resid_norm:
+UnboundLocalError: local variable 'resid_norm' referenced before assignment

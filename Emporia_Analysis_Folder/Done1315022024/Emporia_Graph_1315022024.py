@@ -13,7 +13,7 @@ field = ["python file name",
 '''
 
 txt_file, name, eminusb, numloops, avgresidnorm, sec1loop, e1loop, tinfx = \
-np.loadtxt("../Emporia_Results.csv", skiprows=1, delimiter=",", dtype=str, unpack=True)
+np.loadtxt("Emporia_Results_1315022024.csv", skiprows=1, delimiter=",", dtype=str, unpack=True)
 
 e1loop = [float(i) for i in e1loop]
 print(e1loop)
@@ -26,7 +26,7 @@ fig = plt.figure()
 
 depth_plt = fig.add_subplot(projection='3d')
 depth_plt.scatter(np.log(sec1loop), np.log(e1loop), np.log(avgresidnorm), marker=".", s=100)
-depth_plt.set_title("Time v.s. Energy v.s. Average Residual Norm")
+depth_plt.set_title("Time v.s. Energy v.s. Average Residual Norm - Log Plot")
 depth_plt.set_xlabel("Seconds in Loop", wrap=True)
 depth_plt.set_ylabel("Energy Minus Base in a Single Loop (Wh)", wrap=True)
 depth_plt.set_zlabel("Average Residual Norm", wrap=True)
@@ -37,7 +37,7 @@ for (s, i, j, k) in zip(name, np.log(sec1loop), np.log(e1loop), np.log(avgresidn
 plt.figure()
 
 plt.scatter(np.log(sec1loop), np.log(e1loop))
-plt.title("Time v.s. Energy")
+plt.title("Time v.s. Energy - Log Plot")
 plt.xlabel("Seconds Single Loop")
 plt.ylabel("Energy Single Loop")
 for (s, i, j) in zip(name, np.log(sec1loop), np.log(e1loop)):
@@ -45,7 +45,7 @@ for (s, i, j) in zip(name, np.log(sec1loop), np.log(e1loop)):
 plt.figure()
 
 plt.scatter(np.log(sec1loop), np.log(avgresidnorm))
-plt.title("Time v.s. Average Residual Norm")
+plt.title("Time v.s. Average Residual Norm - Log Plot")
 plt.xlabel("Seconds Single Loop")
 plt.ylabel("Average Residual Norm")
 for (s, i, j) in zip(name, np.log(sec1loop), np.log(avgresidnorm)):
@@ -53,7 +53,7 @@ for (s, i, j) in zip(name, np.log(sec1loop), np.log(avgresidnorm)):
 plt.figure()
 
 plt.scatter(np.log(e1loop), np.log(avgresidnorm))
-plt.title("Energy v.s. Average Residual Norm")
+plt.title("Energy v.s. Average Residual Norm - Log Plot")
 plt.xlabel("Energy Single Loop")
 plt.ylabel("Average Residual Norm")
 for (s, i, j) in zip(name, np.log(e1loop), np.log(avgresidnorm)):

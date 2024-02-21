@@ -24,7 +24,7 @@ print(avgresidnorm)
 
 
 plt.scatter(np.log(sec1loop), np.log(e1loop))
-plt.title("Time v.s. Energy")
+plt.title("Time v.s. Energy Log Plot")
 plt.xlabel("Seconds Single Loop")
 plt.ylabel("Energy Single Loop")
 for (s, i, j) in zip(name, np.log(sec1loop), np.log(e1loop)):

@@ -26,7 +26,7 @@ def count_data_extraction(file, solver_name):
     return start, end, num_loops, avg_resid_norm, file_name, name
 
 s, e, num_loops, avg_resid_norm, file_name, name =  count_data_extraction(
-    "Done1315022024/scipy_sparse_linalg_tfqmr February152024.txt", "scipy tfqmr")
+    "Done181920022024/sparse_linalg_spsolve February202024.txt", "scipy spsolve")
 c_strt_time = s.strip().split(".")
 c_strt_time = c_strt_time[0].strip()
 c_end_time = e.strip().split(".")
@@ -42,7 +42,7 @@ print(c_iso_end_time[3])
 
 #Energy CSV retreived from Emporia site
 
-energy_data_dates, energies = np.loadtxt("343254-emporiaplug1-1MINFeb1315.csv",
+energy_data_dates, energies = np.loadtxt("343254-emporiaplug1-1MIN181920.csv",
                          skiprows=1, delimiter=",", dtype=str, unpack=True)
 
 def date_match(date_lst, date):

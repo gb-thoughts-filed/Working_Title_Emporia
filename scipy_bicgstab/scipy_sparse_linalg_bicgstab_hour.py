@@ -4,7 +4,11 @@ import igl
 import scipy as sp
 from datetime import datetime
 import time
+import psutil
 # import matplotlib.pyplot as plt
+
+percpu = psutil.cpu_percent(percpu=True)
+cpu_count = psutil.cpu_count()
 v, _, _, f, _, _ = igl.read_obj("octopus.mesh__sf.obj")
 # ps.init()
 # ps.register_surface_mesh("octopus", v, f)
@@ -58,6 +62,7 @@ def sparse_linalg_bicgstab(Ldd, rhs, timer):
         norms.append(resid_norm)
         counter2 += 1
     avg_resid_norm = np.average(norms)
-    time_file.write(f" \n {start_time}, {counter}, {end_time}, {avg_resid_norm}")
+    time_file.write(f" \n {start_time}, {counter}, {end_time}, "
+                    f"{avg_resid_norm}, {percpu}, {cpu_count}")
 
 sparse_linalg_bicgstab(Ldd, rhs, 3600)

@@ -1,0 +1,14 @@
+Timer unit: 1e-07 s
+
+Total time: 0.814618 s
+File: C:\Users\ga6ri\PycharmProjects\Emporia\scipy_solver_line_profiler.py
+Function: solver at line 46
+
+Line #      Hits         Time  Per Hit   % Time  Line Contents
+==============================================================
+    46                                           @profile
+    47                                           def solver(a, b):
+    48         1    8146178.0    8e+06    100.0      udd = sp.sparse.linalg.cg(a, b, tol=10**-10)
+    49         1          3.0      3.0      0.0      return udd
+
+  0.81 seconds - C:\Users\ga6ri\PycharmProjects\Emporia\scipy_solver_line_profiler.py:46 - solver

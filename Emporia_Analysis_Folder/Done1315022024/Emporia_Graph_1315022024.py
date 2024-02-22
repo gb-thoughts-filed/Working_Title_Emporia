@@ -13,7 +13,7 @@ field = ["python file name",
 '''
 
 txt_file, name, eminusb, numloops, avgresidnorm, sec1loop, e1loop, tinfx = \
-np.loadtxt("Emporia_Results_1315022024.csv", skiprows=1, delimiter=",", dtype=str, unpack=True)
+np.loadtxt("Emporia_Results_no_cgs1315.csv", skiprows=1, delimiter=",", dtype=str, unpack=True)
 
 e1loop = [float(i) for i in e1loop]
 print(e1loop)
@@ -37,7 +37,7 @@ for (s, i, j, k) in zip(name, np.log(sec1loop), np.log(e1loop), np.log(avgresidn
 plt.figure()
 
 plt.scatter(np.log(sec1loop), np.log(e1loop))
-plt.title("Time v.s. Energy - Log Plot")
+plt.title("Time v.s. Energy - Log Plot - Default Tolerances")
 plt.xlabel("Seconds Single Loop")
 plt.ylabel("Energy Single Loop")
 for (s, i, j) in zip(name, np.log(sec1loop), np.log(e1loop)):

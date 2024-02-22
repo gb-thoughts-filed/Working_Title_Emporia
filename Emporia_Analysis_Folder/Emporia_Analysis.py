@@ -42,8 +42,9 @@ print(c_iso_end_time[3])
 
 #Energy CSV retreived from Emporia site
 
-energy_data_dates, energies = np.loadtxt("343254-emporiaplug1-1MIN181920.csv",
-                         skiprows=1, delimiter=",", dtype=str, unpack=True)
+energy_data_dates, energies = np.loadtxt(
+    "343254-emporiaplug1-1MIN181920.csv",
+    skiprows=1, delimiter=",", dtype=str, unpack=True)
 
 def date_match(date_lst, date):
 
@@ -76,23 +77,26 @@ energy_one_loop = avg_energies_reduced_minus_base / num_loops
 seconds_one_loop = 3600 / num_loops
 
 
-with open('Emporia_Results.csv', 'a', newline='') as file:
+with open('Emporia_Results_Extended.csv', 'a', newline='') as file:
     writer = csv.writer(file)
 
     '''
     field = ["python file name",
              "solver name",
+             "start time",
+             "end time",
+             "avg energy",
              "avg energy - base",
              "# of loops",
              "avg resid norm",
              "seconds in single loop",
-             "avg energy in loop",
-             "time in fx, profiler"]
+             "avg energy in loop"]
     '''
 
-    writer.writerow([file_name, name, avg_energies_reduced_minus_base,
+    writer.writerow([file_name, name, s, e, avg_energies_reduced_Wh,
+                     avg_energies_reduced_minus_base,
                      num_loops, avg_resid_norm,
-                     seconds_one_loop, energy_one_loop, 0])
+                     seconds_one_loop, energy_one_loop])
 
 
 

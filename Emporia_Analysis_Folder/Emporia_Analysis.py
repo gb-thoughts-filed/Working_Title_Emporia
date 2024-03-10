@@ -1,61 +1,75 @@
 import csv
 import numpy as np
 import time
+import datetime
 
-#important attributes
 
-base_energy_Wh = 82.4
 
-#Count Data Text File Created in Function
+# important attributes
 
-def count_data_extraction(file, solver_name):
+base_energy_W = 82.4
 
-    #ensures that only the last line of the txt files generated with python
-    #programs is read
+# Count Data Text File Created in Function
+
+
+def count_data_extraction(file):
+
+    # ensures that only the last line of the txt files generated with python
+    # programs is read
     count_data_file = open(file)
     row_num = len(count_data_file.readlines())
     index = row_num -1
     count_data_file.close()
     count_data_file = open(file)
     count_data = count_data_file.readlines()[index].split(",")
-    #print(count_data)
-    #actual data is extracted from the txt files here
+    # print(count_data)
+    # actual data is extracted from the txt files here
     num_loops = int(count_data[1])
     avg_resid_norm = float(count_data[3])
     file_name = file
-    name = solver_name
+    name = count_data[4]
     start = count_data[0]
     end = count_data[2]
-    return start, end, num_loops, avg_resid_norm, file_name, name
-
-s, e, num_loops, avg_resid_norm, file_name, name =  count_data_extraction(
-    "Done181920022024/sparse_linalg_spsolve February202024.txt", "scipy spsolve")
-
-#python's datetime format didn't match the format given by the emporia plug
-#so this is data cleaning to make sure the dates match up.
-#Specifically the numbers after the decimal point for python's datetime is
-#removed here.
-c_strt_time = s.strip().split(".")
-c_strt_time = c_strt_time[0].strip()
-c_end_time = e.strip().split(".")
-c_end_time = c_end_time[0].strip()
-print(c_strt_time)
-#Here the newly formatted start and end times are turned into time objects
-c_iso_strt_time = time.strptime(c_strt_time, "%Y-%m-%d %H:%M:%S")
-c_iso_end_time = time.strptime(c_end_time, "%Y-%m-%d %H:%M:%S")
-print(c_iso_strt_time[3])
-print(c_iso_end_time[3])
+    tol = count_data[5]
+    max_iter = count_data[6]
+    resid_count_lim = count_data[7]
+    machine_info = count_data[8]
+    mesh_f = count_data[9]
+    uk2 = count_data[10]
+    return start, end, num_loops, \
+           avg_resid_norm, file_name, name, tol, \
+           max_iter, resid_count_lim, machine_info, mesh_f, uk2
 
 
+def date_processing(start_time, end_time):
 
-#Energy CSV retreived from Emporia site
+    # python's datetime format didn't match the format given by the emporia plug
+    # so this is data cleaning to make sure the dates match up.
+    # Specifically the numbers after the decimal point for python's datetime is
+    # removed here.
+    c_strt_time = start_time.strip().split(".")
+    c_strt_time = c_strt_time[0].strip()
+    c_end_time = end_time.strip().split(".")
+    c_end_time = c_end_time[0].strip()
+    print(c_strt_time)
+    # Here the newly formatted start and end times are turned into time objects
+    c_iso_strt_time = datetime.datetime.strptime(c_strt_time, "%Y-%m-%d %H:%M:%S")
+    c_iso_end_time = datetime.datetime.strptime(c_end_time, "%Y-%m-%d %H:%M:%S")
+    print(c_iso_strt_time)
+    print(c_iso_end_time)
+    c_iso_strt_time = c_iso_strt_time + datetime.timedelta(minutes=5)
+    c_iso_end_time = c_iso_end_time - datetime.timedelta(minutes=5)
+    print(c_iso_strt_time)
+    print(c_iso_end_time)
 
-energy_data_dates, energies = np.loadtxt(
-    "343254-emporiaplug1-1MIN181920.csv",
-    skiprows=1, delimiter=",", dtype=str, unpack=True)
+    time_difference = c_iso_end_time - c_iso_strt_time
+    print(time_difference.seconds)
 
-#Time objects given by the text files are compared to time objects created from
-#the Emporia energy data csv.
+    return c_iso_strt_time, c_iso_end_time, time_difference.seconds
+
+
+# Time objects given by the text files are compared to time objects created from
+# the Emporia energy data csv.
 def date_match(date_lst, date):
 
     for i in np.arange(len(date_lst)):
@@ -63,54 +77,59 @@ def date_match(date_lst, date):
         if i_struct[0:5] == date[0:5]:
             return i
 
-start_index = date_match(energy_data_dates, c_iso_strt_time)
-end_index = date_match(energy_data_dates, c_iso_end_time)
 
-print(start_index, end_index)
+# The needed powers are extracted from the Emporia energy data csv
 
-#The needed energies are extracted from the Emporia energy data csv
-def needed_energies(energy_lst, start_i, end_i):
-    energies = []
-    for index in np.arange(len(energy_lst)):
+def needed_powers(power_lst, start_i, end_i):
+    powers = []
+    for index in np.arange(len(power_lst)):
         if start_i <= index <= end_i:
-            energies.append(float(energy_lst[index]))
+            powers.append(float(power_lst[index]))
 
-    return energies
-
-energies_reduced = needed_energies(energies, start_index, end_index)
-#print(energies_reduced)
-
-#Energies by Emporia are reported in terms of Kwh, the below line
-#averages the energies and changes it to Wh by multiplying by 1000.
-avg_energies_reduced_Wh = np.average(energies_reduced)*1000
-
-avg_energies_reduced_minus_base = avg_energies_reduced_Wh - base_energy_Wh
-
-energy_one_loop = avg_energies_reduced_minus_base / num_loops
-
-seconds_one_loop = 3600 / num_loops
+    return powers
 
 
-with open('Emporia_Results_Extended.csv', 'a', newline='') as file:
-    writer = csv.writer(file)
+def energy_count_extraction(energy_file, count_file):
 
-    '''
-    field = ["python file name",
-             "solver name",
-             "start time",
-             "end time",
-             "avg energy",
-             "avg energy - base",
-             "# of loops",
-             "avg resid norm",
-             "seconds in single loop",
-             "avg energy in loop"]
-    '''
+    s, e, num_loops, avg_resid_norm, file_name, \
+    name, tol, max_iter, resid_count_lim, machine_info, \
+    meshfile, uk2_vector = count_data_extraction(
+        count_file)
 
-    writer.writerow([file_name, name, s, e, avg_energies_reduced_Wh,
-                     avg_energies_reduced_minus_base,
-                     num_loops, avg_resid_norm,
-                     seconds_one_loop, energy_one_loop])
+    c_iso_strt_time, c_iso_end_time, time_difference_seconds = date_processing(s, e)
+
+    #Power CSV retreived from Emporia site
+
+    power_data_dates, powers = np.loadtxt(
+        energy_file,
+        skiprows=1, delimiter=",", dtype=str, unpack=True)
+
+    start_index = date_match(power_data_dates, c_iso_strt_time)
+    end_index = date_match(power_data_dates, c_iso_end_time)
+
+    print(start_index, end_index)
+
+    powers_reduced = needed_powers(powers, start_index, end_index)
+    # print(powers_reduced)
+
+    return s, e, num_loops, avg_resid_norm, file_name, \
+           name, tol, max_iter, resid_count_lim, machine_info, meshfile, \
+           uk2_vector, time_difference_seconds, powers_reduced
+
+def calculations(reduced_pwr_lst, total_seconds, number_loops, base_energy_W):
+    # Energies by Emporia are reported in terms of W, the below line
+    # averages the powers and changes it to Wh by multiplying by 1000.
+    avg_powers_reduced_W = np.average(reduced_pwr_lst) * 1000
+
+    avg_powers_reduced_minus_base_W = avg_powers_reduced_W - base_energy_W
+
+    seconds_one_loop = total_seconds / number_loops
+
+    energy_one_solve = avg_powers_reduced_minus_base_W * seconds_one_loop
+
+    return avg_powers_reduced_W, avg_powers_reduced_minus_base_W, \
+           seconds_one_loop, energy_one_solve
+
 
 
 

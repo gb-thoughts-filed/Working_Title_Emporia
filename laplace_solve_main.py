@@ -10,17 +10,18 @@ iterative_solvers = [sp.sparse.linalg.bicg,
                      sp.sparse.linalg.bicgstab,
                      sp.sparse.linalg.cg,
                      sp.sparse.linalg.gmres,
-                     sp.sparse.linalg.lgmres,
+                     # sp.sparse.linalg.lgmres,
                      sp.sparse.linalg.minres,
-                     sp.sparse.linalg.qmr,
-                     sp.sparse.linalg.gcrotmk]
+                     sp.sparse.linalg.qmr
+                     # sp.sparse.linalg.gcrotmk
+			]
 u_k = [-5, 20]
 A, b, meshf, uk2, mesht = solve_functions.laplace_setup("meshes/octopus.mesh__sf.obj",
                                                  u_k)
 
-time_lim = 5
-residual_lim = 3
-max_iterations = 10**10
+time_lim = 3600
+residual_lim = 5
+max_iterations = None
 tol = 10**-7
 
 direct_max_iter = None

@@ -1,0 +1,13 @@
+python3: can't open file '/home/gcbrowne/Working_Title_Emporia/scipy_bicg_hour.py': [Errno 2] No such file or directory
+python3: can't open file '/home/gcbrowne/Working_Title_Emporia/scipy_bicg_hour.py': [Errno 2] No such file or directory
+Traceback (most recent call last):
+  File "/home/gcbrowne/Working_Title_Emporia/laplace_solve_main.py", line 30, in <module>
+    solve_functions.general_iterative_tracker(A, b, time_lim,
+  File "/home/gcbrowne/Working_Title_Emporia/solve_functions.py", line 64, in general_iterative_tracker
+    udd = solver(Ldd, rhs, tol=tolerance, maxiter=max_iter)
+  File "<decorator-gen-1>", line 2, in bicg
+  File "/home/gcbrowne/.local/lib/python3.10/site-packages/scipy/_lib/_threadsafety.py", line 44, in caller
+    return func(*a, **kw)
+  File "/home/gcbrowne/.local/lib/python3.10/site-packages/scipy/sparse/linalg/_isolve/iterative.py", line 180, in bicg
+    revcom(b, x, work, iter_, resid, info, ndx1, ndx2, ijob)
+OverflowError: Python int too large to convert to C int

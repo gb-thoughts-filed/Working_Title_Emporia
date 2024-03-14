@@ -22,7 +22,7 @@ A, b, meshf, uk2, mesht = solve_functions.laplace_setup("meshes/octopus.mesh__sf
 time_lim = 3600
 residual_lim = 5
 max_iterations = None
-tol = 10**-7
+tol = 10**-1
 
 direct_max_iter = None
 direct_tol = None

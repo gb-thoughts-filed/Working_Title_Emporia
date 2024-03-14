@@ -1,0 +1,2 @@
+python file name,solver name,start time,end time,time difference (s),avg power (W),avg power - base (W),total solves,avg resid norm,seconds in single loop,energy one solve (J),tolerance,max iterations,residual count limit,machine information,mesh filename,uk vector
+meshes_octopus_mesh__sf_obj_20240310201806/bicg_March102024.txt, bicg,2024-03-10 20:23:06,2024-03-10 21:13:06,3000,225.8803921568627,143.4803921568627,2781, 2.526306649103941e-06,1.0787486515641855,154.77927956511618, 1e-07, None, 5, uname_result(system='Linux', node='boden', release='5.15.0-100-generic'

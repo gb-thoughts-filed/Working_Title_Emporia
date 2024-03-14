@@ -5,9 +5,8 @@ import datetime
 import Emporia_Analysis
 # Establish Analysis file
 
-t_analysis_file = datetime.now()
-t_analysis_file_str = t_analysis_file.strftime("%Y%m%d%H%M%S")
-with open(f'Emporia_Analysis_Folder/Emporia_Results_Extended_{t_analysis_file_str}.csv',
+time_analysis_file_str = datetime.now().strftime("%Y%m%d%H%M%S")
+with open(f'Emporia_Analysis_Folder/Emporia_Results_Extended_{time_analysis_file_str}.csv',
           'w', newline='') as file:
     writer = csv.writer(file)
     field = ["python file name",

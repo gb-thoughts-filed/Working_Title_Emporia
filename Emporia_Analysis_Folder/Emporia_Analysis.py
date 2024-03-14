@@ -11,34 +11,31 @@ base_energy_W = 82.4
 
 # Count Data Text File Created in Function
 
+class SolverReturnData:
+    def __init__(self, file):
+        # ensures that only the last line of the txt files generated with python
+        # programs is read
+        with open(file) as count_data_file:
+            lines = count_data_file.readlines()
+            row_num = len(lines)
+            last_row = row_num -1
 
-def count_data_extraction(file):
+            count_data = lines[last_row].split(",")
+            # print(count_data)
 
-    # ensures that only the last line of the txt files generated with python
-    # programs is read
-    count_data_file = open(file)
-    row_num = len(count_data_file.readlines())
-    index = row_num -1
-    count_data_file.close()
-    count_data_file = open(file)
-    count_data = count_data_file.readlines()[index].split(",")
-    # print(count_data)
-    # actual data is extracted from the txt files here
-    num_loops = int(count_data[1])
-    avg_resid_norm = float(count_data[3])
-    file_name = file
-    name = count_data[4]
-    start = count_data[0]
-    end = count_data[2]
-    tol = count_data[5]
-    max_iter = count_data[6]
-    resid_count_lim = count_data[7]
-    machine_info = count_data[8]
-    mesh_f = count_data[9]
-    uk2 = count_data[10]
-    return start, end, num_loops, \
-           avg_resid_norm, file_name, name, tol, \
-           max_iter, resid_count_lim, machine_info, mesh_f, uk2
+            # actual data is extracted from the txt files here
+            self.num_loops = int(count_data[1])
+            self.avg_resid_norm = float(count_data[3])
+            self.file_name = file
+            self.name = count_data[4]
+            self.start = count_data[0]
+            self.end = count_data[2]
+            self.tol = count_data[5]
+            self.max_iter = count_data[6]
+            self.resid_count_lim = count_data[7]
+            self.machine_info = count_data[8]
+            self.mesh_f = count_data[9]
+            self.uk2 = count_data[10]
 
 
 def date_processing(start_time, end_time):

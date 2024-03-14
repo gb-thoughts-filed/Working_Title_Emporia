@@ -6,47 +6,65 @@ import time
 import platform
 import os
 
-def laplace_setup(mesh, uk2_vector):
 
-    v, _, _, f, _, _ = igl.read_obj(mesh)
+class LaplaceEquationSetup:
+    def __init__(self, mesh: str, uk2_vector: list):
+        self.mesh = mesh
+        self.uk2_vector = uk2_vector
 
-    uk2_vector_name = str(uk2_vector)
+        self.Ldd = None
+        self.rhs = None
+        # srt Ldd and rhs
+        self._laplace_setup()
 
-    L = igl.cotmatrix(v, f)
-    # print(L)
+        self.mesh_filename = None
+        self.mesh_calltime = None
+        # set mesh_filename and mesh_calltime
+        self._get_mesh_details()
+        os.mkdir(f"{self.mesh_filename}_{self.mesh_calltime}")
+
+    def _laplace_setup(self):
+        """
+        Private function to set the Ldd and rhs values needed for solving
+        :return: None
+        """
+        v, _, _, f, _, _ = igl.read_obj(self.mesh)
+
+        uk2_vector_name = str(self.uk2_vector)
+
+        L = igl.cotmatrix(v, f)
+        # print(L)
 
 
-    # plt.spy(L)
-    eps = 1e-12
-    i1 = np.where(v[:, 1] == v[:, 1].max())[0] # top of octopus, indices known
-    i2 = np.where(v[:, 0] == v[:, 0].min())[0]
+        # plt.spy(L)
+        eps = 1e-12
+        i1 = np.where(v[:, 1] == v[:, 1].max())[0] # top of octopus, indices known
+        i2 = np.where(v[:, 0] == v[:, 0].min())[0]
 
-    k = np.concatenate([i1, i2])
+        k = np.concatenate([i1, i2])
 
-    n = v.shape[0]
-    d = np.setdiff1d(np.arange(n), k)
+        n = v.shape[0]
+        d = np.setdiff1d(np.arange(n), k)
 
-    Ldd = L[d, :][:, d]
-    Ldk = L[d, :][:, k]
+        self.Ldd = L[d, :][:, d]
+        Ldk = L[d, :][:, k]
 
 
-    # assemble uk=2 vector (u[k])
-    u_k = np.array(uk2_vector)
-    # solve Ldd * udd = uk
+        # assemble uk=2 vector (u[k])
+        u_k = np.array(self.uk2_vector)
+        # solve Ldd * udd = uk
 
-    rhs = -Ldk @ u_k
+        self.rhs = -Ldk @ u_k
 
-    # Processing mesh file name.
-    mesh_filename = mesh.replace("/", "_").replace(".", "_")
+    def _get_mesh_details(self):
+        # Processing mesh file name.
+        self.mesh_filename = self.mesh.replace("/", "_").replace(".", "_")
 
-    # Processing mesh call time
+        # Processing mesh call time
 
-    mesh_calltime = datetime.datetime.now()
-    mesh_calltime = mesh_calltime.strftime("%Y%m%d%H%M%S")
+        self.mesh_calltime = datetime.datetime.now().strftime("%Y%m%d%H%M%S")
 
-    os.mkdir(f"{mesh_filename}_{mesh_calltime}")
 
-    return Ldd, rhs, mesh_filename, uk2_vector_name, mesh_calltime
 
 # A, b, meshf, uk2, mesh_t = laplace_setup("meshes/octopus.mesh__sf.obj", [-5, 20])
 

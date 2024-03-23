@@ -1,11 +1,18 @@
+import os
+
+num_threads = '1'
+os.environ["MKL_NUM_THREADS"] = num_threads
+os.environ["NUMEXPR_NUM_THREADS"] = num_threads
+os.environ["OMP_NUM_THREADS"] = num_threads
+os.environ['OPENBLAS_NUM_THREADS'] = num_threads
+os.environ['VECLIB_MAXIMUM_THREADS'] = num_threads
+
 import numpy as np
 import igl
 import scipy as sp
 import datetime
 import time
 import solve_functions_limited
-import psutil
-import os
 
 
 ITERATIVE_SOLVERS = (sp.sparse.linalg.bicg,
@@ -21,7 +28,7 @@ ITERATIVE_SOLVERS = (sp.sparse.linalg.bicg,
 A, b, meshf, uk2, mesht = solve_functions_limited.laplace_setup("meshes/octopus.mesh__sf.obj",
                                                         [-5, 20])
 
-time_lim = 5
+time_lim = 3600
 residual_lim = 5
 max_iterations = None
 tol = 10**-1

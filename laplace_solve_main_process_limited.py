@@ -1,11 +1,18 @@
+import os
+
+num_threads = '1'
+os.environ["MKL_NUM_THREADS"] = num_threads
+os.environ["NUMEXPR_NUM_THREADS"] = num_threads
+os.environ["OMP_NUM_THREADS"] = num_threads
+os.environ['OPENBLAS_NUM_THREADS'] = num_threads
+os.environ['VECLIB_MAXIMUM_THREADS'] = num_threads
+
 import numpy as np
 import igl
 import scipy as sp
 import datetime
 import time
 import solve_functions_limited
-import psutil
-import os
 
 
 ITERATIVE_SOLVERS = (sp.sparse.linalg.bicg,

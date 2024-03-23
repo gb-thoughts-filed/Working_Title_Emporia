@@ -4,9 +4,11 @@ import scipy as sp
 import datetime
 import time
 import solve_functions
+import psutil
+import os
 
 
-ITERATIVE_SOLVERS = {sp.sparse.linalg.bicg,
+ITERATIVE_SOLVERS = (sp.sparse.linalg.bicg,
                      sp.sparse.linalg.bicgstab,
                      sp.sparse.linalg.cg,
                      sp.sparse.linalg.gmres,
@@ -14,12 +16,12 @@ ITERATIVE_SOLVERS = {sp.sparse.linalg.bicg,
                      sp.sparse.linalg.minres,
                      sp.sparse.linalg.qmr
                      # sp.sparse.linalg.gcrotmk
-                     }
+                     )
 
 A, b, meshf, uk2, mesht = solve_functions.laplace_setup("meshes/octopus.mesh__sf.obj",
                                                         [-5, 20])
 
-time_lim = 3600
+time_lim = 5
 residual_lim = 5
 max_iterations = None
 tol = 10**-1

@@ -2,14 +2,23 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 '''
-field = ["python file name",
-         "solver name",
-         "avg energy - base",
-         "# of loops",
-         "avg resid norm",
-         "seconds in single loop",
-         "avg energy in loop",
-         "time in fx, profiler"]
+RESULT_FILE_HEADERS = ("python file name",
+                       "solver name",
+                       "start time",
+                       "end time",
+                       "time difference (s)",
+                       "avg power (W)",
+                       "avg power - base (W)",
+                       "total solves",
+                       "avg resid norm",
+                       "seconds in single loop",
+                       "energy one solve (J)",
+                       "tolerance",
+                       "max iterations",
+                       "residual count limit",
+                       "machine information",
+                       "mesh filename",
+                       "uk vector")
 '''
 
 txt_file, name, eminusb, numloops, avgresidnorm, sec1loop, e1loop, tinfx = \

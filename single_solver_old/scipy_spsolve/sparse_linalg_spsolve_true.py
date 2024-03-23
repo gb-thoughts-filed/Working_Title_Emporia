@@ -6,7 +6,7 @@ from datetime import datetime
 import time
 
 # import matplotlib.pyplot as plt
-v, _, _, f, _, _ = igl.read_obj("../octopus.mesh__sf.obj")
+v, _, _, f, _, _ = igl.read_obj("../../octopus.mesh__sf.obj")
 # ps.init()
 # ps.register_surface_mesh("octopus", v, f)
 # ps.show()
@@ -36,18 +36,14 @@ rhs = -Ldk @ u_k
 
 counter = 0
 title = datetime.today()
-time_file = open(f"sparse_linalg_spsolve_fixed_iter{title: %B%d%Y}.txt", "a")
-start_time = datetime.now()
-t1 = time.time()
+# time_file = open(f"sparse_linalg_spsolve_true {title: %B%d%Y%H%M}.txt", "w")
 # print and save starting date/time to disk
 # make a time loop that calls the next line for a whole hour or a whole day
 # counter saved after each time the function is called
 # print and save ending date time
 # email stuff
-while counter < 1000:
+while True:
     udd = sp.sparse.linalg.spsolve(Ldd, rhs)
     counter += 1
-
-end_time = datetime.now()
-
-time_file.write(f" \n {start_time}, {counter}, {end_time}")
+    time_file = open(f"sparse_linalg_spsolve_true {title: %B%d%Y%H%M}.txt", "w")
+    time_file.write(f" \n {counter}")

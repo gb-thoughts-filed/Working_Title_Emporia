@@ -1,22 +1,13 @@
 import numpy as np
 import igl
-import scipy as sp
-from datetime import datetime
 import time
 #import cvxopt as cvx
 #from cvxopt import umfpack
 #from scipy_spsolve import sparse_linalg_spsolve_hour
-from scipy_tfqmr import scipy_sparse_linalg_tfqmr_hour
-from scipy_factorized import sparse_linalg_factorized_hour
-from scipy_bicgstab import scipy_sparse_linalg_bicgstab_hour
-from scipy_biconjugate_gradient_iteration import scipy_bicg_hour
-from scipy_cg import sparse_linalg_cg_hour
-from scipy_gcrotmk import scipy_sparse_linalg_gcrotmk_hour
-from scipy_gmres import scipy_sparse_linalg_gmres_hour
-from scipy_lgmres import scipy_sparse_linalg_lgmres_hour
-from scipy_minres import scipy_sparse_linalg_minres_hour
-from scipy_qmr import scipy_sparse_linalg_qmr_hour
-from scipy_cgs import scipy_sparse_linalg_cgs_hour
+from single_solver_old.scipy_cg import sparse_linalg_cg_hour
+from single_solver_old.scipy_gmres import scipy_sparse_linalg_gmres_hour
+from single_solver_old.scipy_lgmres import scipy_sparse_linalg_lgmres_hour
+from single_solver_old.scipy_minres import scipy_sparse_linalg_minres_hour
 
 # import matplotlib.pyplot as plt
 v, _, _, f, _, _ = igl.read_obj("octopus.mesh__sf.obj")

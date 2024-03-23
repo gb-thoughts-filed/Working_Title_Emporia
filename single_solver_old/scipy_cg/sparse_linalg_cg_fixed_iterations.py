@@ -4,9 +4,8 @@ import igl
 import scipy as sp
 from datetime import datetime
 import time
-import cProfile
 # import matplotlib.pyplot as plt
-v, _, _, f, _, _ = igl.read_obj("../octopus.mesh__sf.obj")
+v, _, _, f, _, _ = igl.read_obj("../../octopus.mesh__sf.obj")
 # ps.init()
 # ps.register_surface_mesh("octopus", v, f)
 # ps.show()
@@ -35,19 +34,9 @@ u_k = np.array([-5, 20])
 
 rhs = -Ldk @ u_k
 
-
-def loop(initial_time, calc_Ldd, calc_rhs):
-    counter = 0
-    calc_udd = 0
-    while time.time() - initial_time < 10:
-        calc_udd = sp.sparse.linalg.cg(calc_Ldd, calc_rhs)
-    counter += 1
-    return calc_udd
-
-
-counter = 'null'
+counter = 0
 title = datetime.today()
-time_file = open(f"sparse_linalg_cg_cProfile {title: %B%d%Y}.txt", "a")
+time_file = open(f"sparse_linalg_cg_fixed_iter {title: %B%d%Y}.txt", "a")
 start_time = datetime.now()
 t1 = time.time()
 #print and save starting date/time to disk
@@ -55,8 +44,10 @@ t1 = time.time()
 #counter saved after each time the function is called
 #print and save ending date time
 #email stuff
-cProfile.run('loop(t1, Ldd, rhs)')
-udd = loop(t1, Ldd, rhs)
+while counter < 1000:
+    udd = sp.sparse.linalg.cg(Ldd, rhs)
+    counter += 1
+
 end_time = datetime.now()
 
 time_file.write(f" \n {start_time}, {counter}, {end_time}")

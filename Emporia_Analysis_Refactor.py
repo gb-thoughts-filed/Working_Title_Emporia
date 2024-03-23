@@ -115,51 +115,64 @@ if __name__ == "__main__":
 
     BASE_ENERGY_W = 82.4
 
-    file_path = "meshes_octopus_mesh__sf_obj_20240310201806/bicg_March102024.txt"
+    file_paths = [
+        "meshes_octopus_mesh__sf_obj_20240313172112/bicg_March132024.txt",
+        "meshes_octopus_mesh__sf_obj_20240313172112/bicgstab_March132024.txt",
+        "meshes_octopus_mesh__sf_obj_20240313172112/cg_March132024.txt",
+        "meshes_octopus_mesh__sf_obj_20240313172112/factorized_March142024.txt",
+        "meshes_octopus_mesh__sf_obj_20240313172112/gmres_March132024.txt",
+        "meshes_octopus_mesh__sf_obj_20240313172112/minres_March132024.txt",
+        "meshes_octopus_mesh__sf_obj_20240313172112/qmr_March132024.txt",
+        "meshes_octopus_mesh__sf_obj_20240313172112/spsolve_March132024.txt"
+    ]
 
-    power_data_dates, powers = np.loadtxt(
-        "Emporia_Analysis_Folder/343254-emporiaplug1-1MIN-Mar101124.csv",
-        skiprows=1, delimiter=",", dtype=str, unpack=True)
+    for i in file_paths:
 
-    solver_return_readlines = solver_returned_data_contents(file_path)
-    solver_return_object = parse_solver_returned_data_contents(solver_return_readlines)
+        file_path = i
 
-    start_index = date_match(power_data_dates, solver_return_object.start_time)
-    end_index = date_match(power_data_dates, solver_return_object.end_time)
+        power_data_dates, powers = np.loadtxt(
+            "Emporia_Analysis_Folder/343254-emporiaplug1-1MIN-Mar10_14_2024.csv",
+            skiprows=1, delimiter=",", dtype=str, unpack=True)
 
-    powers_list_reduced = needed_powers(powers, start_index, end_index)
+        solver_return_readlines = solver_returned_data_contents(file_path)
+        solver_return_object = parse_solver_returned_data_contents(solver_return_readlines)
 
-    avg_powers_reduced_W = np.average(powers_list_reduced) * 1000
+        start_index = date_match(power_data_dates, solver_return_object.start_time)
+        end_index = date_match(power_data_dates, solver_return_object.end_time)
 
-    avg_powers_reduced_minus_base_W = avg_powers_reduced_W - BASE_ENERGY_W
-    time_difference_seconds = (solver_return_object.end_time -
-                               solver_return_object.start_time).seconds
-    seconds_one_loop = time_difference_seconds / solver_return_object.total_solves
+        powers_list_reduced = needed_powers(powers, start_index, end_index)
 
-    energy_one_solve = avg_powers_reduced_minus_base_W * seconds_one_loop
+        avg_powers_reduced_W = np.average(powers_list_reduced) * 1000
 
-    folder = file_path.split("/")[0]
-    mesh_call_time = folder.split("_")[-1]
+        avg_powers_reduced_minus_base_W = avg_powers_reduced_W - BASE_ENERGY_W
+        time_difference_seconds = (solver_return_object.end_time -
+                                   solver_return_object.start_time).seconds
+        seconds_one_loop = time_difference_seconds / solver_return_object.total_solves
 
-    analysis_file_name = f'Emporia_Analysis_Folder/' \
-                         f'Emporia_Results_Extended_{mesh_call_time}.csv'
+        energy_one_solve = avg_powers_reduced_minus_base_W * seconds_one_loop
 
-    total_results = [file_path,
-                     solver_return_object.solver_name,
-                     solver_return_object.start_time,
-                     solver_return_object.end_time,
-                     time_difference_seconds,
-                     avg_powers_reduced_W,
-                     avg_powers_reduced_minus_base_W,
-                     solver_return_object.total_solves,
-                     solver_return_object.average_residual_norm,
-                     seconds_one_loop,
-                     energy_one_solve,
-                     solver_return_object.solver_tolerance,
-                     solver_return_object.max_iterations,
-                     solver_return_object.residual_norm_average_list_limit,
-                     solver_return_object.machine_info,
-                     solver_return_object.mesh_filename,
-                     solver_return_object.uk_vector]
+        folder = file_path.split("/")[0]
+        mesh_call_time = folder.split("_")[-1]
 
-    write_results(analysis_file_name, total_results, RESULT_FILE_HEADERS)
+        analysis_file_name = f'Emporia_Analysis_Folder/' \
+                             f'Emporia_Results_Extended_{mesh_call_time}.csv'
+
+        total_results = [file_path,
+                         solver_return_object.solver_name,
+                         solver_return_object.start_time,
+                         solver_return_object.end_time,
+                         time_difference_seconds,
+                         avg_powers_reduced_W,
+                         avg_powers_reduced_minus_base_W,
+                         solver_return_object.total_solves,
+                         solver_return_object.average_residual_norm,
+                         seconds_one_loop,
+                         energy_one_solve,
+                         solver_return_object.solver_tolerance,
+                         solver_return_object.max_iterations,
+                         solver_return_object.residual_norm_average_list_limit,
+                         solver_return_object.machine_info,
+                         solver_return_object.mesh_filename,
+                         solver_return_object.uk_vector]
+
+        write_results(analysis_file_name, total_results, RESULT_FILE_HEADERS)

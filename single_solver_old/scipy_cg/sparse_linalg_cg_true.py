@@ -6,7 +6,7 @@ from datetime import datetime
 import time
 
 # import matplotlib.pyplot as plt
-v, _, _, f, _, _ = igl.read_obj("../octopus.mesh__sf.obj")
+v, _, _, f, _, _ = igl.read_obj("../../octopus.mesh__sf.obj")
 # ps.init()
 # ps.register_surface_mesh("octopus", v, f)
 # ps.show()
@@ -43,7 +43,7 @@ title = datetime.today()
 # print and save ending date time
 # email stuff
 while True:
-    udd = sp.sparse.linalg.spsolve(Ldd, rhs)
+    udd = sp.sparse.linalg.cg(Ldd, rhs)
     counter += 1
-    time_file = open(f"sparse_linalg_spsolve_true {title: %B%d%Y%H%M}.txt", "w")
-    time_file.write(f" \n {counter}")
+    time_file = open(f"sparse_linalg_cg_true {title: %B%d%Y%H%M}.txt", "w")
+    time_file.write(f"{counter}")

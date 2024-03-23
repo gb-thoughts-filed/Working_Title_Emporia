@@ -21,7 +21,7 @@ ITERATIVE_SOLVERS = (sp.sparse.linalg.bicg,
 A, b, meshf, uk2, mesht = solve_functions_limited.laplace_setup("meshes/octopus.mesh__sf.obj",
                                                         [-5, 20])
 
-time_lim = 5
+time_lim = 3600
 residual_lim = 5
 max_iterations = None
 tol = 10**-1

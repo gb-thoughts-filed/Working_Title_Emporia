@@ -13,6 +13,7 @@ import scipy as sp
 import datetime
 import time
 import platform
+import psutil
 
 def laplace_setup(mesh, uk2_vector):
 
@@ -79,6 +80,7 @@ def general_iterative_tracker(Ldd, rhs, timer, solver,
 
     while counter2 < resid_count_lim:
         udd = solver(Ldd, rhs, tol=tolerance, maxiter=max_iter)
+        cpu_percent = psutil.cpu_percent()
         resid_norm = np.linalg.norm(Ldd@udd[0] - rhs)
         norms.append(resid_norm)
         counter2 += 1
@@ -86,7 +88,8 @@ def general_iterative_tracker(Ldd, rhs, timer, solver,
     time_file.write(f" \n {start_time}, {counter}, "
                     f"{end_time}, {avg_resid_norm}, {solver_name}, "
                     f"{tolerance}, {max_iter}, {resid_count_lim}, "
-                    f"{platform.uname()}, {mesh_filename}, {uk2_vector}")
+                    f"{platform.uname()}, {mesh_filename}, {uk2_vector},"
+                    f"{cpu_percent}")
 
 
 def spsolve_tracker(Ldd, rhs, timer, solver,
@@ -111,6 +114,7 @@ def spsolve_tracker(Ldd, rhs, timer, solver,
 
     while counter2 < resid_count_lim:
         udd = solver(Ldd, rhs)
+        cpu_percent = psutil.cpu_percent()
         resid_norm = np.linalg.norm(Ldd@udd - rhs)
         norms.append(resid_norm)
         counter2 += 1
@@ -118,7 +122,8 @@ def spsolve_tracker(Ldd, rhs, timer, solver,
     time_file.write(f" \n {start_time}, {counter}, "
                     f"{end_time}, {avg_resid_norm}, {solver_name}, "
                     f"{tolerance}, {max_iter}, {resid_count_lim}, "
-                    f"{platform.uname()}, {mesh_filename}, {uk2_vector}")
+                    f"{platform.uname()}, {mesh_filename}, {uk2_vector}"
+                    f"{cpu_percent}")
 
 def factorized_tracker(Ldd, rhs, timer, solver,
                     tolerance, max_iter, resid_count_lim,
@@ -146,6 +151,7 @@ def factorized_tracker(Ldd, rhs, timer, solver,
     while counter2 < resid_count_lim:
         solve = solver(Ldd)
         udd = solve(rhs)
+        cpu_percent = psutil.cpu_percent()
         resid_norm = np.linalg.norm(Ldd@udd - rhs)
         norms.append(resid_norm)
         counter2 += 1
@@ -153,4 +159,5 @@ def factorized_tracker(Ldd, rhs, timer, solver,
     time_file.write(f" \n {start_time}, {counter}, "
                     f"{end_time}, {avg_resid_norm}, {solver_name}, "
                     f"{tolerance}, {max_iter}, {resid_count_lim}, "
-                    f"{platform.uname()}, {mesh_filename}, {uk2_vector}")
+                    f"{platform.uname()}, {mesh_filename}, {uk2_vector}"
+                    f"{cpu_percent}")

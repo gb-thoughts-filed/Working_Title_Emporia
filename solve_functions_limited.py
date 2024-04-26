@@ -15,6 +15,11 @@ import time
 import platform
 import psutil
 
+#number of vertices for diff sized meshes, number of vertices, number of energy plot, also time plot
+#10^-1+-2
+#state of the art reports
+#never read the method section, when you're just reading
+
 def laplace_setup(mesh, uk2_vector):
 
     v, _, _, f, _, _ = igl.read_obj(mesh)
@@ -80,7 +85,10 @@ def general_iterative_tracker(Ldd, rhs, timer, solver,
 
     while counter2 < resid_count_lim:
         udd = solver(Ldd, rhs, tol=tolerance, maxiter=max_iter)
-        cpu_percent = psutil.cpu_percent()
+        if 'cpu_percent' in locals():
+            pass
+        else:
+            cpu_percent = psutil.cpu_percent()
         resid_norm = np.linalg.norm(Ldd@udd[0] - rhs)
         norms.append(resid_norm)
         counter2 += 1
@@ -114,7 +122,10 @@ def spsolve_tracker(Ldd, rhs, timer, solver,
 
     while counter2 < resid_count_lim:
         udd = solver(Ldd, rhs)
-        cpu_percent = psutil.cpu_percent()
+        if 'cpu_percent' in locals():
+            pass
+        else:
+            cpu_percent = psutil.cpu_percent()
         resid_norm = np.linalg.norm(Ldd@udd - rhs)
         norms.append(resid_norm)
         counter2 += 1
@@ -151,7 +162,10 @@ def factorized_tracker(Ldd, rhs, timer, solver,
     while counter2 < resid_count_lim:
         solve = solver(Ldd)
         udd = solve(rhs)
-        cpu_percent = psutil.cpu_percent()
+        if 'cpu_percent' in locals():
+            pass
+        else:
+            cpu_percent = psutil.cpu_percent()
         resid_norm = np.linalg.norm(Ldd@udd - rhs)
         norms.append(resid_norm)
         counter2 += 1

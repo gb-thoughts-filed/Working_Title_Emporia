@@ -2,10 +2,10 @@ import csv
 from datetime import datetime
 import datetime as dt
 from dataclasses import dataclass
-import platform
+# import platform
 import numpy as np
 import os
-import time as time_module
+# import time as time_module
 
 RESULT_FILE_HEADERS = ("python file name",
                        "solver name",
@@ -23,7 +23,8 @@ RESULT_FILE_HEADERS = ("python file name",
                        "residual count limit",
                        "machine information",
                        "mesh filename",
-                       "uk vector")
+                       "uk vector",
+                       "cpu percentage")
 
 @dataclass
 class SolverReturnedData:
@@ -38,18 +39,12 @@ class SolverReturnedData:
     machine_info: str
     mesh_filename: str
     uk_vector: str
+    cpu_percentage: str
 
 
-def solver_returned_data_contents(file):
+def solver_returned_data_contents(file) -> list:
     with open(file) as solver_data_contents:
-        too_many_splits = solver_data_contents.readlines()[-1].split(",")
-        first = too_many_splits[:8]
-        main = first.copy()
-        machine_info = str(too_many_splits[8:13])
-        main.append(machine_info)
-        uk_vector = str(too_many_splits[14:])
-        main.append(too_many_splits[13])
-        main.append(uk_vector)
+        main = solver_data_contents.readlines()[-1].split(",")
 
         return main
 
@@ -77,7 +72,8 @@ def parse_solver_returned_data_contents(solver_returned_data_contents:list
                               solver_returned_data_contents[7],
                               solver_returned_data_contents[8],
                               solver_returned_data_contents[9],
-                              solver_returned_data_contents[10])
+                              solver_returned_data_contents[10],
+                              solver_returned_data_contents[11])
 
 def date_match(date_lst: list, date: datetime) -> int:
 
@@ -131,7 +127,7 @@ if __name__ == "__main__":
         file_path = i
 
         power_data_dates, powers = np.loadtxt(
-            "Emporia_Analysis_Folder/343254-emporiaplug1-1MIN-Mar10_14_2024.csv",
+            "Emporia_Analysis_Folder/tolerance_testing_20240314/343254-emporiaplug1-1MIN-Mar10_14_2024.csv",
             skiprows=1, delimiter=",", dtype=str, unpack=True)
 
         solver_return_readlines = solver_returned_data_contents(file_path)
@@ -173,6 +169,7 @@ if __name__ == "__main__":
                          solver_return_object.residual_norm_average_list_limit,
                          solver_return_object.machine_info,
                          solver_return_object.mesh_filename,
-                         solver_return_object.uk_vector]
+                         solver_return_object.uk_vector,
+                         solver_return_object.cpu_percentage]
 
         write_results(analysis_file_name, total_results, RESULT_FILE_HEADERS)

@@ -1,0 +1,2 @@
+ 
+ 2024-04-26 16:28:06.135441, 3054, 2024-04-26 16:28:16.136092, 2.6373914258916873, bicgstab, 0.1, None, 5, uname_result(system='Windows', node='DESKTOP-TN5U1FP', release='10', version='10.0.19045', machine='AMD64'), meshes_octopus_mesh__sf_obj, [-5, 20],22.4

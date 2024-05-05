@@ -1,11 +1,11 @@
 import os
 
-# num_threads = '1'
-# os.environ["MKL_NUM_THREADS"] = num_threads
-# os.environ["NUMEXPR_NUM_THREADS"] = num_threads
-# os.environ["OMP_NUM_THREADS"] = num_threads
-# os.environ['OPENBLAS_NUM_THREADS'] = num_threads
-# os.environ['VECLIB_MAXIMUM_THREADS'] = num_threads
+num_threads = '1'
+os.environ["MKL_NUM_THREADS"] = num_threads
+os.environ["NUMEXPR_NUM_THREADS"] = num_threads
+os.environ["OMP_NUM_THREADS"] = num_threads
+os.environ['OPENBLAS_NUM_THREADS'] = num_threads
+os.environ['VECLIB_MAXIMUM_THREADS'] = num_threads
 
 import numpy as np
 import igl
@@ -140,7 +140,8 @@ def general_iterative_tracker(Ldd, rhs, timer, solver,
     time_file.write(f" \n {start_time}, {counter}, "
                     f"{end_time}, {avg_resid_norm}, {solver_name}, "
                     f"{tolerance}, {max_iter}, {resid_count_lim}, "
-                    f"{str(platform.uname()).replace(',', ';')}, {mesh_filename}, {uk2_vector},"
+                    f"{str(platform.uname()).replace(',', ';')}, {mesh_filename}, "
+                    f"{str(uk2_vector).replace(',', ';')}, "
                     f"{cpu_percent}")
 
 
@@ -177,7 +178,8 @@ def spsolve_tracker(Ldd, rhs, timer, solver,
     time_file.write(f" \n {start_time}, {counter}, "
                     f"{end_time}, {avg_resid_norm}, {solver_name}, "
                     f"{tolerance}, {max_iter}, {resid_count_lim}, "
-                    f"{str(platform.uname()).replace(',', ';')}, {mesh_filename}, {uk2_vector}, "
+                    f"{str(platform.uname()).replace(',', ';')}, {mesh_filename}, "
+                    f"{str(uk2_vector).replace(',', ';')}, "
                     f"{cpu_percent}")
 
 def factorized_tracker(Ldd, rhs, timer, solver,
@@ -215,7 +217,8 @@ def factorized_tracker(Ldd, rhs, timer, solver,
     time_file.write(f" \n {start_time}, {counter}, "
                     f"{end_time}, {avg_resid_norm}, {solver_name}, "
                     f"{tolerance}, {max_iter}, {resid_count_lim}, "
-                    f"{str(platform.uname()).replace(',', ';')}, {mesh_filename}, {uk2_vector},"
+                    f"{str(platform.uname()).replace(',', ';')}, {mesh_filename}, "
+                    f"{str(uk2_vector).replace(',', ';')}, "
                     f"{cpu_percent}")
 
 
@@ -252,5 +255,6 @@ def factorized_tracker_back_substitution(Ldd, factorized_Ldd, rhs, timer, solver
     time_file.write(f" \n {start_time}, {counter}, "
                     f"{end_time}, {avg_resid_norm}, {solver_name}, "
                     f"{tolerance}, {max_iter}, {resid_count_lim}, "
-                    f"{str(platform.uname()).replace(',', ';')}, {mesh_filename}, {uk2_vector}, "
+                    f"{str(platform.uname()).replace(',', ';')}, {mesh_filename}, "
+                    f"{str(uk2_vector).replace(',', ';')}, "
                     f"{cpu_percent}")

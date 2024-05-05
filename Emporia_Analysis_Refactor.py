@@ -44,8 +44,12 @@ class SolverReturnedData:
 
 def solver_returned_data_contents(file) -> list:
     with open(file) as solver_data_contents:
-        main = solver_data_contents.readlines()[-1].split(",")
-
+        #main = solver_data_contents.readlines()[-1].split(",")
+        main = list(csv.reader(solver_data_contents, delimiter=","))[-1]
+        # for line in main:
+        #     print(line)
+        # main = next(main)
+        #print(main)
         return main
 
 def string_to_datetime(time: str) -> datetime:
@@ -112,14 +116,15 @@ if __name__ == "__main__":
     BASE_ENERGY_W = 82.4
 
     file_paths = [
-        "meshes_octopus_mesh__sf_obj_20240313172112/bicg_March132024.txt",
-        "meshes_octopus_mesh__sf_obj_20240313172112/bicgstab_March132024.txt",
-        "meshes_octopus_mesh__sf_obj_20240313172112/cg_March132024.txt",
-        "meshes_octopus_mesh__sf_obj_20240313172112/factorized_March142024.txt",
-        "meshes_octopus_mesh__sf_obj_20240313172112/gmres_March132024.txt",
-        "meshes_octopus_mesh__sf_obj_20240313172112/minres_March132024.txt",
-        "meshes_octopus_mesh__sf_obj_20240313172112/qmr_March132024.txt",
-        "meshes_octopus_mesh__sf_obj_20240313172112/spsolve_March132024.txt"
+        "meshes_octopus_mesh__sf_obj_20240501015214/bicg_May012024.txt",
+        "meshes_octopus_mesh__sf_obj_20240501015214/bicgstab_May012024.txt",
+        "meshes_octopus_mesh__sf_obj_20240501015214/cg_May012024.txt",
+        "meshes_octopus_mesh__sf_obj_20240501015214/factorized_back_substitution_May012024.txt",
+        "meshes_octopus_mesh__sf_obj_20240501015214/factorized_May012024.txt",
+        "meshes_octopus_mesh__sf_obj_20240501015214/gmres_May012024.txt",
+        "meshes_octopus_mesh__sf_obj_20240501015214/minres_May012024.txt",
+        "meshes_octopus_mesh__sf_obj_20240501015214/qmr_May012024.txt",
+        "meshes_octopus_mesh__sf_obj_20240501015214/spsolve_May012024.txt"
     ]
 
     for i in file_paths:
@@ -127,7 +132,7 @@ if __name__ == "__main__":
         file_path = i
 
         power_data_dates, powers = np.loadtxt(
-            "Emporia_Analysis_Folder/tolerance_testing_20240314/343254-emporiaplug1-1MIN-Mar10_14_2024.csv",
+            "Emporia_Analysis_Folder/343254-emporiaplug1-1MINMay1.csv",
             skiprows=1, delimiter=",", dtype=str, unpack=True)
 
         solver_return_readlines = solver_returned_data_contents(file_path)

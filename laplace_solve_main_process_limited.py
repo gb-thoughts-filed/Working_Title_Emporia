@@ -1,11 +1,11 @@
 import os
 
-# num_threads = '1'
-# os.environ["MKL_NUM_THREADS"] = num_threads
-# os.environ["NUMEXPR_NUM_THREADS"] = num_threads
-# os.environ["OMP_NUM_THREADS"] = num_threads
-# os.environ['OPENBLAS_NUM_THREADS'] = num_threads
-# os.environ['VECLIB_MAXIMUM_THREADS'] = num_threads
+num_threads = '1'
+os.environ["MKL_NUM_THREADS"] = num_threads
+os.environ["NUMEXPR_NUM_THREADS"] = num_threads
+os.environ["OMP_NUM_THREADS"] = num_threads
+os.environ['OPENBLAS_NUM_THREADS'] = num_threads
+os.environ['VECLIB_MAXIMUM_THREADS'] = num_threads
 
 import numpy as np
 import igl
@@ -30,7 +30,7 @@ A, b, meshf, uk2, mesht = solve_functions_limited.laplace_setup("meshes/octopus.
 A_f, factorized_A, b_f, meshf_f, uk2_f, \
 mesht_f = solve_functions_limited.laplace_setup_factorized_back_substitution("meshes/octopus.mesh__sf.obj",
                                                                 [-5, 20])
-time_lim = 1800
+time_lim = 10
 residual_lim = 5
 max_iterations = None
 tol = 10**-7

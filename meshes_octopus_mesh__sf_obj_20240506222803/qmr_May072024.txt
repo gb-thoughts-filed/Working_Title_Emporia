@@ -1,0 +1,2 @@
+ 
+ 2024-05-07 03:28:18.297791, 10244, 2024-05-07 04:28:18.327861, 0.00026333098449313625, qmr, 1e-05, None, 5, uname_result(system='Linux'; node='boden'; release='5.15.0-105-generic'; version='#115-Ubuntu SMP Mon Apr 15 09:52:04 UTC 2024'; machine='x86_64'), meshes_octopus_mesh__sf_obj, [-5; 20], 12.5

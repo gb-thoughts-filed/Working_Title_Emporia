@@ -30,10 +30,10 @@ A, b, meshf, uk2, mesht = solve_functions_limited.laplace_setup("meshes/octopus.
 A_f, factorized_A, b_f, meshf_f, uk2_f, \
 mesht_f = solve_functions_limited.laplace_setup_factorized_back_substitution("meshes/octopus.mesh__sf.obj",
                                                                 [-5, 20])
-time_lim = 10
+time_lim = 3600
 residual_lim = 5
 max_iterations = None
-tol = 10**-7
+tol = 10**-5
 
 direct_max_iter = None
 direct_tol = None

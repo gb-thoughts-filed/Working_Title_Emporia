@@ -33,7 +33,7 @@ mesht_f = solve_functions_limited.laplace_setup_factorized_back_substitution("me
 time_lim = 3600
 residual_lim = 5
 max_iterations = None
-tol = 10**-5
+tol = 10**-1
 
 direct_max_iter = None
 direct_tol = None

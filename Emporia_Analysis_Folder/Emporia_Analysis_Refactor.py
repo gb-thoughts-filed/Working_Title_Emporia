@@ -116,15 +116,15 @@ if __name__ == "__main__":
     BASE_ENERGY_W = 82.4
 
     file_paths = [
-        "meshes_octopus_mesh__sf_obj_20240501015214/bicg_May012024.txt",
-        "meshes_octopus_mesh__sf_obj_20240501015214/bicgstab_May012024.txt",
-        "meshes_octopus_mesh__sf_obj_20240501015214/cg_May012024.txt",
-        "meshes_octopus_mesh__sf_obj_20240501015214/factorized_back_substitution_May012024.txt",
-        "meshes_octopus_mesh__sf_obj_20240501015214/factorized_May012024.txt",
-        "meshes_octopus_mesh__sf_obj_20240501015214/gmres_May012024.txt",
-        "meshes_octopus_mesh__sf_obj_20240501015214/minres_May012024.txt",
-        "meshes_octopus_mesh__sf_obj_20240501015214/qmr_May012024.txt",
-        "meshes_octopus_mesh__sf_obj_20240501015214/spsolve_May012024.txt"
+        "meshes_octopus_mesh__sf_obj_20240505172928/bicg_May052024.txt",
+        "meshes_octopus_mesh__sf_obj_20240505172928/bicgstab_May052024.txt",
+        "meshes_octopus_mesh__sf_obj_20240505172928/cg_May052024.txt",
+        "meshes_octopus_mesh__sf_obj_20240505172928/factorized_back_substitution_May062024.txt",
+        "meshes_octopus_mesh__sf_obj_20240505172928/factorized_May062024.txt",
+        "meshes_octopus_mesh__sf_obj_20240505172928/gmres_May052024.txt",
+        "meshes_octopus_mesh__sf_obj_20240505172928/minres_May052024.txt",
+        "meshes_octopus_mesh__sf_obj_20240505172928/qmr_May052024.txt",
+        "meshes_octopus_mesh__sf_obj_20240505172928/spsolve_May052024.txt"
     ]
 
     for i in file_paths:
@@ -132,7 +132,7 @@ if __name__ == "__main__":
         file_path = i
 
         power_data_dates, powers = np.loadtxt(
-            "Emporia_Analysis_Folder/343254-emporiaplug1-1MINMay1.csv",
+            "Emporia_Analysis_Folder/343254-emporiaplug1-1MINMay4_9.csv",
             skiprows=1, delimiter=",", dtype=str, unpack=True)
 
         solver_return_readlines = solver_returned_data_contents(file_path)

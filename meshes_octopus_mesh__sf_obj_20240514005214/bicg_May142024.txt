@@ -1,0 +1,2 @@
+ 
+ 2024-05-14 00:52:14.881666, 3905, 2024-05-14 01:52:15.654738, 0.00026292377069855074, bicg, 1e-05, None, 5, uname_result(system='Linux'; node='boden'; release='5.15.0-106-generic'; version='#116-Ubuntu SMP Wed Apr 17 09:17:56 UTC 2024'; machine='x86_64'), meshes_octopus_mesh__sf_obj, [-5; 20], 100.0

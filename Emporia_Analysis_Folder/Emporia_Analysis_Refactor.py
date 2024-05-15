@@ -116,15 +116,15 @@ if __name__ == "__main__":
     BASE_ENERGY_W = 82.4
 
     file_paths = [
-        "meshes_octopus_mesh__sf_obj_20240505172928/bicg_May052024.txt",
-        "meshes_octopus_mesh__sf_obj_20240505172928/bicgstab_May052024.txt",
-        "meshes_octopus_mesh__sf_obj_20240505172928/cg_May052024.txt",
-        "meshes_octopus_mesh__sf_obj_20240505172928/factorized_back_substitution_May062024.txt",
-        "meshes_octopus_mesh__sf_obj_20240505172928/factorized_May062024.txt",
-        "meshes_octopus_mesh__sf_obj_20240505172928/gmres_May052024.txt",
-        "meshes_octopus_mesh__sf_obj_20240505172928/minres_May052024.txt",
-        "meshes_octopus_mesh__sf_obj_20240505172928/qmr_May052024.txt",
-        "meshes_octopus_mesh__sf_obj_20240505172928/spsolve_May052024.txt"
+        "meshes_octopus_mesh__sf_obj_20240514113546/bicg_May142024.txt",
+        "meshes_octopus_mesh__sf_obj_20240514113546/bicgstab_May142024.txt",
+        "meshes_octopus_mesh__sf_obj_20240514113546/cg_May142024.txt",
+        "meshes_octopus_mesh__sf_obj_20240514113546/factorized_back_substitution_May142024.txt",
+        "meshes_octopus_mesh__sf_obj_20240514113546/factorized_May142024.txt",
+        "meshes_octopus_mesh__sf_obj_20240514113546/gmres_May142024.txt",
+        "meshes_octopus_mesh__sf_obj_20240514113546/minres_May142024.txt",
+        "meshes_octopus_mesh__sf_obj_20240514113546/qmr_May142024.txt",
+        "meshes_octopus_mesh__sf_obj_20240514113546/spsolve_May142024.txt"
     ]
 
     for i in file_paths:
@@ -132,7 +132,7 @@ if __name__ == "__main__":
         file_path = i
 
         power_data_dates, powers = np.loadtxt(
-            "Emporia_Analysis_Folder/343254-emporiaplug1-1MINMay4_9.csv",
+            "343254-emporiaplug1-1MINMay13_14.csv",
             skiprows=1, delimiter=",", dtype=str, unpack=True)
 
         solver_return_readlines = solver_returned_data_contents(file_path)
@@ -155,8 +155,10 @@ if __name__ == "__main__":
         folder = file_path.split("/")[0]
         mesh_call_time = folder.split("_")[-1]
 
-        analysis_file_name = f'Emporia_Analysis_Folder/' \
-                             f'Emporia_Results_Extended_{mesh_call_time}.csv'
+        # analysis_file_name = f'Emporia_Analysis_Folder/' \
+        #                      f'Emporia_Results_Extended_{mesh_call_time}.csv'
+
+        analysis_file_name = f'Emporia_Results_Extended_{mesh_call_time}.csv'
 
         total_results = [file_path,
                          solver_return_object.solver_name,

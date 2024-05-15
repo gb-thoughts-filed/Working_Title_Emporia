@@ -98,11 +98,12 @@ def write_results(file: str, results: list, headers: list = None):
     to_write = []
     if not os.path.exists(file):
         to_write.append(headers or RESULT_FILE_HEADERS)
+
         '''
         with open(file, 'w'):
             writer = csv.writer(file)
             writer.writerow(headers or RESULT_FILE_HEADERS)
-           '''
+        '''
     with open(file,'a', newline='') as f:
         to_write.append(results)
         writer = csv.writer(f)
@@ -116,15 +117,15 @@ if __name__ == "__main__":
     BASE_ENERGY_W = 82.4
 
     file_paths = [
-        "meshes_octopus_mesh__sf_obj_20240514113546/bicg_May142024.txt",
-        "meshes_octopus_mesh__sf_obj_20240514113546/bicgstab_May142024.txt",
-        "meshes_octopus_mesh__sf_obj_20240514113546/cg_May142024.txt",
-        "meshes_octopus_mesh__sf_obj_20240514113546/factorized_back_substitution_May142024.txt",
-        "meshes_octopus_mesh__sf_obj_20240514113546/factorized_May142024.txt",
-        "meshes_octopus_mesh__sf_obj_20240514113546/gmres_May142024.txt",
-        "meshes_octopus_mesh__sf_obj_20240514113546/minres_May142024.txt",
-        "meshes_octopus_mesh__sf_obj_20240514113546/qmr_May142024.txt",
-        "meshes_octopus_mesh__sf_obj_20240514113546/spsolve_May142024.txt"
+        "meshes_octopus_mesh__sf_obj_20240509102245/bicg_May092024.txt",
+        "meshes_octopus_mesh__sf_obj_20240509102245/bicgstab_May092024.txt",
+        "meshes_octopus_mesh__sf_obj_20240509102245/cg_May092024.txt",
+        "meshes_octopus_mesh__sf_obj_20240509102245/factorized_back_substitution_May092024.txt",
+        "meshes_octopus_mesh__sf_obj_20240509102245/factorized_May092024.txt",
+        "meshes_octopus_mesh__sf_obj_20240509102245/gmres_May092024.txt",
+        "meshes_octopus_mesh__sf_obj_20240509102245/minres_May092024.txt",
+        "meshes_octopus_mesh__sf_obj_20240509102245/qmr_May092024.txt",
+        "meshes_octopus_mesh__sf_obj_20240509102245/spsolve_May092024.txt"
     ]
 
     for i in file_paths:
@@ -132,7 +133,7 @@ if __name__ == "__main__":
         file_path = i
 
         power_data_dates, powers = np.loadtxt(
-            "343254-emporiaplug1-1MINMay13_14.csv",
+            "tolerance_testing_20240510/343254-emporiaplug1-1MINMay4_9.csv",
             skiprows=1, delimiter=",", dtype=str, unpack=True)
 
         solver_return_readlines = solver_returned_data_contents(file_path)
@@ -157,7 +158,6 @@ if __name__ == "__main__":
 
         # analysis_file_name = f'Emporia_Analysis_Folder/' \
         #                      f'Emporia_Results_Extended_{mesh_call_time}.csv'
-
         analysis_file_name = f'Emporia_Results_Extended_{mesh_call_time}.csv'
 
         total_results = [file_path,
